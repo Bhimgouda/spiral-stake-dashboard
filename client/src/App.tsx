@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "./App.css";
 import axios from "axios";
 import Dashboard from "./components/Dashboard";
 
 function App() {
+  const [leveragePositions, setLeveragePositions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const openLP = async () => {
       const openLeveragePoition = await axios.post(
@@ -30,13 +33,19 @@ function App() {
     };
     // closeLP();
     // openLP();
+    fetchLeveragePositions();
   }, []);
 
-  return (
-    <>
-      <Dashboard/>
-    </>
-  );
+  const fetchLeveragePositions = async () => {
+    setLoading(true);
+    const leveragePositions = await axios.get(
+      "http://localhost:5000/leveragePositions"
+    );
+    setLeveragePositions(leveragePositions.data);
+    setLoading(false);
+  };
+
+  return <>{!loading && <Dashboard leveragePositions={leveragePositions} />}</>;
 }
 
 export default App;

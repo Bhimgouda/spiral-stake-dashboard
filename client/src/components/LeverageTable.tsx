@@ -1,19 +1,23 @@
 import { CheckCircle, XCircle } from "lucide-react";
 
-const leverageData = [
-  { id: 1, userAddress: '0x1234...5678', amountCollateral: 1500.25, status: true },
-  { id: 2, userAddress: '0x9876...5432', amountCollateral: 2300.75, status: false },
-  { id: 3, userAddress: '0xabcd...efgh', amountCollateral: 890.50, status: true },
-  { id: 4, userAddress: '0x5678...1234', amountCollateral: 4200.00, status: true },
-  { id: 5, userAddress: '0xfedc...ba98', amountCollateral: 1750.80, status: false },
-  { id: 6, userAddress: '0x3456...7890', amountCollateral: 3100.25, status: true },
-];
+interface leveragePosition  {
+    id:Number,
+    collateralToken:String,
+    loanToken:String,
+    amountCollateral:Number,
+    open:boolean  
+}
 
 
 
 
 
-const LeverageTable = () => {
+
+
+const LeverageTable = ({leveragePositions}:{leveragePositions:Array<leveragePosition>}) => {
+
+const leverageData = leveragePositions
+
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
       <div className="px-6 py-4 bg-gradient-to-r from-purple-600 to-purple-700">
@@ -45,14 +49,14 @@ const LeverageTable = () => {
                   {row.id}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
-                  {row.userAddress}
+                 0x2323233232323
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                   ${row.amountCollateral.toLocaleString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center space-x-2">
-                    {row.status ? (
+                    {row.open ? (
                       <>
                         <CheckCircle className="w-4 h-4 text-green-500" />
                         <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">

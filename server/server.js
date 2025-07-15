@@ -38,8 +38,17 @@ app.put("/leverage/close" , async(req,res) => {
     }
 })
 
-// app.update("/deposit" , async (req,res) => {
+app.get("/leveragePositions", async(req,res) => {
+  try{
+    const leveragePoistions = await LeveragePositions.find().sort({amountCollateral: -1});
 
-// })
+    if(!leveragePoistions){
+        return res.status(404).send("there are no leverage positions")
+    }
+    res.send(leveragePoistions)
+  }catch(error){
+    res.status(500).send(error)
+  }
+})
 
 app.listen(5000,()=>{console.log("Serving on port 5000")});

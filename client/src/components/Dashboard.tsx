@@ -3,8 +3,15 @@ import LeverageTable from "./LeverageTable";
 import TvlChart from "./TvlChart";
 
 // Mock data for demonstration
+interface leveragePosition  {
+    id:Number,
+    collateralToken:String,
+    loanToken:String,
+    amountCollateral:Number,
+    open:boolean  
+}
 
-const Dashboard = () => {
+const Dashboard = ({leveragePositions}:{leveragePositions:Array<leveragePosition>}) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
@@ -23,7 +30,7 @@ const Dashboard = () => {
         </div>
 
         {/* Leverage Table */}
-        <LeverageTable />
+        <LeverageTable leveragePositions={leveragePositions}/>
       </div>
     </div>
   );
