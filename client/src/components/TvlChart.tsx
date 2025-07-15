@@ -1,10 +1,22 @@
+import { TrendingUp } from "lucide-react";
+
+const tvlData = [
+  { date: '2025-01-13', tvl: 45000 },
+  { date: '2025-01-14', tvl: 52000 },
+  { date: '2025-01-15', tvl: 68000 },
+  { date: '2025-01-16', tvl: 75000 },
+  { date: '2025-01-17', tvl: 82000 },
+  { date: '2025-01-18', tvl: 95000 },
+  { date: '2025-01-19', tvl: 102000 },
+];
+
 const TvlChart = () => {
   const maxTvl = Math.max(...tvlData.map(d => d.tvl));
   const minTvl = Math.min(...tvlData.map(d => d.tvl));
   const range = maxTvl - minTvl;
   
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+    <div className="bg-white rounded-xl shadow-lg p-6 py-10 transition-all duration-300 hover:shadow-xl">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-xl font-bold text-gray-800">Total Value Locked</h3>
         <div className="flex items-center space-x-2">
@@ -78,3 +90,5 @@ const TvlChart = () => {
     </div>
   );
 };
+
+export default TvlChart;
