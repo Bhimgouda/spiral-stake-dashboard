@@ -3,12 +3,20 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Dashboard from "./components/Dashboard";
+import type { Metrics } from "./types";
 
 function App() {
   const [leveragePositions, setLeveragePositions] = useState([]);
+  const [metrics, setMetrics] = useState<Metrics[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const newUser = async () => {
+      const newUser = await axios.post("http://localhost:5000/user", {
+        address: "0x34343434",
+      });
+      console.log(newUser.data);
+    };
     const openLP = async () => {
       const openLeveragePoition = await axios.post(
         "http://localhost:5000/leverage/open",
@@ -32,8 +40,10 @@ function App() {
       console.log(closeLeveragePoition.data);
     };
     // closeLP();
-    // openLP();
+    openLP();
+    newUser();
     fetchLeveragePositions();
+    fetchMetrics();
   }, []);
 
   const fetchLeveragePositions = async () => {
@@ -45,7 +55,14 @@ function App() {
     setLoading(false);
   };
 
-  return <>{!loading && <Dashboard leveragePositions={leveragePositions} />}</>;
+  const fetchMetrics = async () => {
+    setLoading(true);
+    const metrics = await axios.get("http://localhost:5000/metrics");
+    setMetrics(metrics.data);
+    setLoading(false);
+  };
+
+  return <>{!loading && <Dashboard leveragePositions={leveragePositions} metrics={metrics}/>}</>;
 }
 
 export default App;

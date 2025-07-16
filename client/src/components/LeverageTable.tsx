@@ -52,7 +52,7 @@ const leverageData = leveragePositions
                  0x2323233232323
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                  ${row.amountCollateral.toLocaleString()}
+                  ${row.amountCollateral}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center space-x-2">

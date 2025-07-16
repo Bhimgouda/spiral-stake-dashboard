@@ -1,18 +1,9 @@
 import { Users } from "lucide-react";
+import type { Metrics } from "../types";
 
-const usersData = [
-  { date: "2025-01-13", users: 1200 },
-  { date: "2025-01-14", users: 1800 },
-  { date: "2025-01-15", users: 2400 },
-  { date: "2025-01-16", users: 3200 },
-  { date: "2025-01-17", users: 2800 },
-  { date: "2025-01-18", users: 3600 },
-  { date: "2025-01-19", users: 4100 },
-];
-
-const UsersChart = () => {
-  const maxUsers = Math.max(...usersData.map((d) => d.users));
-  const minUsers = Math.min(...usersData.map((d) => d.users));
+const UsersChart = ({ metrics }: { metrics: Metrics[] }) => {
+  const maxUsers = Math.max(...metrics.map((d) => d.userCount));
+  const minUsers = Math.min(...metrics.map((d) => d.userCount));
   const range = maxUsers - minUsers;
 
   return (
@@ -22,7 +13,7 @@ const UsersChart = () => {
         <div className="flex items-center space-x-2">
           <Users className="w-5 h-5 text-blue-600" />
           <span className="text-2xl font-bold text-blue-600">
-            {usersData[usersData.length - 1].users}
+            {metrics[metrics.length - 1].userCount}
           </span>
         </div>
       </div>
@@ -44,10 +35,10 @@ const UsersChart = () => {
 
           {/* Line path */}
           <path
-            d={usersData
+            d={metrics
               .map((data, index) => {
-                const x = (index / (usersData.length - 1)) * 400;
-                const y = 192 - ((data.users - minUsers) / range) * 160;
+                const x = (index / (metrics.length - 1)) * 400;
+                const y = 192 - ((data.userCount - minUsers) / range) * 160;
                 return `${index === 0 ? "M" : "L"} ${x} ${y}`;
               })
               .join(" ")}
@@ -58,9 +49,9 @@ const UsersChart = () => {
           />
 
           {/* Data points */}
-          {usersData.map((data, index) => {
-            const x = (index / (usersData.length - 1)) * 400;
-            const y = 192 - ((data.users - minUsers) / range) * 160;
+          {metrics.map((data, index) => {
+            const x = (index / (metrics.length - 1)) * 400;
+            const y = 192 - ((data.userCount - minUsers) / range) * 160;
             return (
               <circle
                 key={index}
@@ -83,8 +74,8 @@ const UsersChart = () => {
         </svg>
 
         {/* X-axis labels */}
-        <div className="flex justify-between mt-2">
-          {usersData.map((data, index) => (
+        {/* <div className="flex justify-between mt-2">
+          {metrics.map((data, index) => (
             <div key={index} className="text-center">
               <span className="text-xs text-gray-600 font-medium">
                 {new Date(data.date).toLocaleDateString("en-US", {
@@ -94,7 +85,7 @@ const UsersChart = () => {
               </span>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
