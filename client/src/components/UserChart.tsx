@@ -2,9 +2,11 @@ import { Users } from "lucide-react";
 import type { Metrics } from "../types";
 
 const UsersChart = ({ metrics }: { metrics: Metrics[] }) => {
+  if (!metrics || metrics.length === 0) return null;
+
   const maxUsers = Math.max(...metrics.map((d) => d.userCount));
   const minUsers = Math.min(...metrics.map((d) => d.userCount));
-  const range = maxUsers - minUsers;
+  const range = maxUsers - minUsers || 1; // Prevent division by zero
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 py-10 transition-all duration-300 hover:shadow-xl">
@@ -19,7 +21,7 @@ const UsersChart = ({ metrics }: { metrics: Metrics[] }) => {
       </div>
 
       <div className="relative h-48 mt-4">
-        <svg className="w-full h-full" viewBox="0 0 400 192">
+        <svg className="w-full h-full" viewBox="0 0 400 200">
           {/* Grid lines */}
           {[0, 1, 2, 3, 4].map((i) => (
             <line
@@ -72,20 +74,6 @@ const UsersChart = ({ metrics }: { metrics: Metrics[] }) => {
             </linearGradient>
           </defs>
         </svg>
-
-        {/* X-axis labels */}
-        {/* <div className="flex justify-between mt-2">
-          {metrics.map((data, index) => (
-            <div key={index} className="text-center">
-              <span className="text-xs text-gray-600 font-medium">
-                {new Date(data.date).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
-          ))}
-        </div> */}
       </div>
     </div>
   );

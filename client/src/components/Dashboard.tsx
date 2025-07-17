@@ -1,22 +1,13 @@
 import UsersChart from "./UserChart";
 import LeverageTable from "./LeverageTable";
 import TvlChart from "./TvlChart";
-import type { Metrics } from "../types";
-
-// Mock data for demonstration
-interface leveragePosition {
-  id: Number;
-  collateralToken: String;
-  loanToken: String;
-  amountCollateral: Number;
-  open: boolean;
-}
+import type { leveragePosition, Metrics } from "../types";
 
 const Dashboard = ({
   leveragePositions,
   metrics,
 }: {
-  leveragePositions: Array<leveragePosition>;
+  leveragePositions: leveragePosition[];
   metrics: Metrics[];
 }) => {
   return (

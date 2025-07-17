@@ -1,68 +1,63 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./App.css";
-import axios from "axios";
 import Dashboard from "./components/Dashboard";
 import type { Metrics } from "./types";
 
 function App() {
-  const [leveragePositions, setLeveragePositions] = useState([]);
+  const [leveragePositions, setLeveragePositions] = useState<any[]>([]);
   const [metrics, setMetrics] = useState<Metrics[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const newUser = async () => {
-      const newUser = await axios.post("http://localhost:5000/user", {
-        address: "0x34343434",
-      });
-      console.log(newUser.data);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [leverageRes, metricsRes] = await Promise.all([
+          axios.get("http://localhost:5000/leveragePositions"),
+          axios.get("http://localhost:5000/metrics"),
+        ]);
+        setLeveragePositions(leverageRes.data);
+        setMetrics(metricsRes.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
-    const openLP = async () => {
-      const openLeveragePoition = await axios.post(
-        "http://localhost:5000/leverage/open",
-        {
-          id: "2323",
-          collateralToken: "abdt",
-          loanToken: "lodt",
-          amountCollateral: 200,
-          open: true,
-        }
-      );
-      console.log(openLeveragePoition.data);
-    };
-    const closeLP = async () => {
-      const closeLeveragePoition = await axios.put(
-        "http://localhost:5000/leverage/close",
-        {
-          id: "2323",
-        }
-      );
-      console.log(closeLeveragePoition.data);
-    };
-    // closeLP();
-    openLP();
+    openLevergeposition();
     newUser();
-    fetchLeveragePositions();
-    fetchMetrics();
+    fetchData();
   }, []);
 
-  const fetchLeveragePositions = async () => {
-    setLoading(true);
-    const leveragePositions = await axios.get(
-      "http://localhost:5000/leveragePositions"
+  const openLevergeposition = async () => {
+    const newPosition = await axios.post(
+      "http://localhost:5000/leverage/open",
+      {
+        id: 1212,
+        owner: "0xc2323",
+        collateralToken: "clsdt",
+        loanToken: "lsdt",
+        amountCollateral: 100,
+        open: true,
+      }
     );
-    setLeveragePositions(leveragePositions.data);
-    setLoading(false);
   };
 
-  const fetchMetrics = async () => {
-    setLoading(true);
-    const metrics = await axios.get("http://localhost:5000/metrics");
-    setMetrics(metrics.data);
-    setLoading(false);
+  const newUser = async () => {
+    const user = await axios.post("http://localhost:5000/user", {
+      address: "0x23232323",
+    });
   };
 
-  return <>{!loading && <Dashboard leveragePositions={leveragePositions} metrics={metrics}/>}</>;
+  return (
+    <>
+      {!loading && (
+        <Dashboard leveragePositions={leveragePositions} metrics={metrics} />
+      )}
+    </>
+  );
 }
 
 export default App;

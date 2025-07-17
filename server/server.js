@@ -27,9 +27,10 @@ app.post("/user", async (req, res) => {
 });
 
 app.post("/leverage/open", async (req, res) => {
-  const { id, collateralToken, loanToken, amountCollateral, open } = req.body;
+  const { id, owner, collateralToken, loanToken, amountCollateral, open } = req.body;
   const newLevergePosition = new LeveragePositions({
     id,
+    owner,
     collateralToken,
     loanToken,
     amountCollateral,

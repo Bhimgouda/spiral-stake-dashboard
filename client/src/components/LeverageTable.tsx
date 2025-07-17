@@ -1,29 +1,19 @@
 import { CheckCircle, XCircle } from "lucide-react";
+import type { leveragePosition } from "../types";
 
-interface leveragePosition  {
-    id:Number,
-    collateralToken:String,
-    loanToken:String,
-    amountCollateral:Number,
-    open:boolean  
-}
-
-
-
-
-
-
-
-const LeverageTable = ({leveragePositions}:{leveragePositions:Array<leveragePosition>}) => {
-
-const leverageData = leveragePositions
+const LeverageTable = ({
+  leveragePositions,
+}: {
+  leveragePositions: leveragePosition[];
+}) => {
+  if (!leveragePositions || leveragePositions.length === 0) return null;
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
       <div className="px-6 py-4 bg-gradient-to-r from-purple-600 to-purple-700">
         <h3 className="text-xl font-bold text-white">Leverage Positions</h3>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
@@ -43,13 +33,16 @@ const leverageData = leveragePositions
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {leverageData.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50 transition-colors duration-200">
+            {leveragePositions.map((row, index) => (
+              <tr
+                key={index}
+                className="hover:bg-gray-50 transition-colors duration-200"
+              >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {row.id}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
-                 0x2323233232323
+                  {row.owner}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                   ${row.amountCollateral}
