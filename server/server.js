@@ -53,7 +53,7 @@ const updateMetrics = async () => {
 };
 
 const scheduleCron = () => {
-  cron.schedule("* * * * *", () => {
+  cron.schedule("0 0 * * *", () => {
     updateMetrics();
   });
 };
