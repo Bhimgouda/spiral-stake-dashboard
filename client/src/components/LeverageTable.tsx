@@ -1,4 +1,3 @@
-import { CheckCircle, XCircle } from "lucide-react";
 import type { leveragePosition } from "../types";
 
 const LeverageTable = ({

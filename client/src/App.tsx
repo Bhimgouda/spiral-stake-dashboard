@@ -32,22 +32,22 @@ function App() {
     // newUser();
   }, []);
 
-  const openLevergeposition = async () => {
-    await axios.post(
-      "http://localhost:5000/leverage/open",
-      {
-        user: "AMOGH",
-        amountCollateralInUsd: 100,
+  // const openLevergeposition = async () => {
+  //   await axios.post(
+  //     "http://localhost:5000/leverage/open",
+  //     {
+  //       user: "AMOGH",
+  //       amountCollateralInUsd: 100,
 
-      }
-    );
-  };
+  //     }
+  //   );
+  // };
 
-  const newUser = async () => {
-    await axios.post("http://localhost:5000/user", {
-      address: "0x23232323",
-    });
-  };
+  // const newUser = async () => {
+  //   await axios.post("http://localhost:5000/user", {
+  //     address: "0x23232323",
+  //   });
+  // };
 
   return (
     <>
