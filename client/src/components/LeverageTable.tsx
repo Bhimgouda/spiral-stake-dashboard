@@ -27,9 +27,9 @@ const LeverageTable = ({
               <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Amount Collateral
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              {/* <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Status
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -39,15 +39,15 @@ const LeverageTable = ({
                 className="hover:bg-gray-50 transition-colors duration-200"
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {row.id}
+                  {index}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">
-                  {row.owner}
+                  {row.user}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                  ${row.amountCollateral}
+                  ${row.amountCollateralInUsd}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                {/* <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center space-x-2">
                     {row.open ? (
                       <>
@@ -65,7 +65,7 @@ const LeverageTable = ({
                       </>
                     )}
                   </div>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

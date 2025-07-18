@@ -4,6 +4,7 @@ import type { Metrics } from "../types";
 const UsersChart = ({ metrics }: { metrics: Metrics[] }) => {
   if (!metrics || metrics.length === 0) return null;
 
+
   const maxUsers = Math.max(...metrics.map((d) => d.userCount));
   const minUsers = Math.min(...metrics.map((d) => d.userCount));
   const range = maxUsers - minUsers || 1; // Prevent division by zero

@@ -26,30 +26,28 @@ function App() {
         setLoading(false);
       }
     };
+    fetchData();
+
     // openLevergeposition();
     // newUser();
-    fetchData();
   }, []);
 
-  // const openLevergeposition = async () => {
-  //   const newPosition = await axios.post(
-  //     "http://localhost:5000/leverage/open",
-  //     {
-  //       id: 1212,
-  //       owner: "0xc2323",
-  //       collateralToken: "clsdt",
-  //       loanToken: "lsdt",
-  //       amountCollateral: 100,
-  //       open: true,
-  //     }
-  //   );
-  // };
+  const openLevergeposition = async () => {
+    await axios.post(
+      "http://localhost:5000/leverage/open",
+      {
+        user: "AMOGH",
+        amountCollateralInUsd: 100,
 
-  // const newUser = async () => {
-  //   const user = await axios.post("http://localhost:5000/user", {
-  //     address: "0x23232323",
-  //   });
-  // };
+      }
+    );
+  };
+
+  const newUser = async () => {
+    await axios.post("http://localhost:5000/user", {
+      address: "0x23232323",
+    });
+  };
 
   return (
     <>
